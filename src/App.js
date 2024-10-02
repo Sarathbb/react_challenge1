@@ -1,23 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import ColorBox from './ColorBox';
+import TypeBox from './TypeBox';
+import ToogleBox from './ToogleBox';
+import { useState } from 'react';
 
 function App() {
+  const [colorText,setColorText] = useState('');
+  const [toogleColor,setToogleColor] = useState('white');
+
+  const handleOnChange = (e) => {
+    const newText = e.target.value;
+    setColorText(newText);
+  }
+  const handleOnClickToogleBtn = ()=>{
+    toogleColor === 'black'? setToogleColor('white') : setToogleColor('black');
+    //alert(toogleColor)
+  }
+  const hexColorCode = (color)=> {
+    const hx = document.createElement('canvas').getContext('2d');
+    hx.fillStyle = color;
+    return hx.fillStyle;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='mainDiv'>
+      <ColorBox 
+        toogleColor = {toogleColor}
+        colorText = {colorText}
+        hexColorCode = {hexColorCode}
+      />
+      <TypeBox 
+        handleOnChange = {handleOnChange}
+      />
+      <ToogleBox 
+        handleOnClickToogleBtn = {handleOnClickToogleBtn}
+      />
     </div>
   );
 }
